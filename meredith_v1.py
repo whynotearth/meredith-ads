@@ -10,10 +10,7 @@ from facebook_business.adobjects.adreportrun import AdReportRun
 import requests
 
 def FBK_init():
-    app_id = '2126327730779495'
-    app_secret = '821717cc16a74b138af2c9070d8c2ff7'
-    access_token = 'EAAeN4kERtWcBAEDMkq53cocQtSDk1XCokU6tOYovTkRwkJc9MLryzH9hbDQZBGXnBFN9vcOajuy7R8n66st58VFSz4ETv4XS25ZArC92pX2iNVy3Ac5MxYHUWToJkaiArtX5PVpJXtvL8KwMdzABZC1SG0vGMzy5enezsVhQjiUljVjMSuomVIWnjiRXAdLORe7Mh0HogZDZD'
-
+   
     FacebookAdsApi.init(app_id, app_secret, access_token)
 
     print("Facebook ADS API initialized !")
