@@ -31,7 +31,9 @@ app_id = '2126327730779495'
 app_secret = '821717cc16a74b138af2c9070d8c2ff7'
 
 # Meredith Marketing App Access Token
-access_token = 'EAAeN4kERtWcBAEDMkq53cocQtSDk1XCokU6tOYovTkRwkJc9MLryzH9hbDQZBGXnBFN9vcOajuy7R8n66st58VFSz4ETv4XS25ZArC92pX2iNVy3Ac5MxYHUWToJkaiArtX5PVpJXtvL8KwMdzABZC1SG0vGMzy5enezsVhQjiUljVjMSuomVIWnjiRXAdLORe7Mh0HogZDZD'
+
+# WARNING : Don't forget to remove this line before push
+access_token = ''
 
 # Facebook ADS Api Initialization
 FacebookAdsApi.init(app_id, app_secret, access_token)
