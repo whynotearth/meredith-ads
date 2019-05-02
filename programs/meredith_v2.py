@@ -25,10 +25,10 @@ def arrayToTSVLine(array):
 output_filename = raw_input("Enter the name of your output (example: meredith.tsv)\n$: ")
 
 # Meredith Marketing App ID
-app_id = '2126327730779495'
+app_id = 'REMOVE SECURITY'
 
 # Meredith Marketing App Secret Key
-app_secret = '821717cc16a74b138af2c9070d8c2ff7'
+app_secret = 'REMOVED SECURITY'
 
 # Meredith Marketing App Access Token
 
