@@ -52,7 +52,7 @@ File.write(output_filename, arrayToTSVLine([
     "impressions".upper()
 ]))
 
-for ad in account.get_ads(fields, params=params):
+for ad in account.get_ads():
 
     # Ad Initialization
     current_ad = Ad(ad["id"])
@@ -66,12 +66,7 @@ for ad in account.get_ads(fields, params=params):
         'campaign_id',
         'reach',
         'impressions',
-        'social_spend'
     ]
-
-    params = {
-        'date_presets': 'lifetime'
-    }
 
     # Get all insights above from current AD
     ad_insights = current_ad.get_insights(fields, params)
