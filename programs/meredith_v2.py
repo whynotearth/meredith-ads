@@ -3,6 +3,8 @@ from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.ad import Ad
 
+import json
+
 class File:
     def write(self, filename, content):
         file = open(filename, "w")
@@ -25,15 +27,17 @@ def arrayToTSVLine(array):
 output_filename = raw_input("Enter the name of your output (example: meredith.tsv)\n$: ")
 
 # Meredith Marketing App ID
-app_id = 'REMOVE SECURITY'
+app_id = '2126327730779495'
 
 # Meredith Marketing App Secret Key
-app_secret = 'REMOVED SECURITY'
+app_secret = '821717cc16a74b138af2c9070d8c2ff7'
 
 # Meredith Marketing App Access Token
 
 # WARNING : Don't forget to remove this line before push
 access_token = ''
+
+json_file = '[]'
 
 # Facebook ADS Api Initialization
 FacebookAdsApi.init(app_id, app_secret, access_token)
@@ -52,6 +56,8 @@ fields = [
 params = {
     'date_presets': 'lifetime'
 }
+
+# TODO: Clean up this part and create methods / class with verification
 
 File.write(output_filename, arrayToTSVLine([
     "ad_name".upper(),
@@ -79,7 +85,6 @@ for ad in account.get_ads(fields, params=params):
 
     fields = [
         'spend',
-        'relevance_score',
         'clicks',
         'ad_id',
         'adset_id',
@@ -131,7 +136,7 @@ for ad in account.get_ads(fields, params=params):
         clicks = data["clicks"]
         unique_clicks = data["unique_clicks"]
 
-        relevance_score = data["relevance_score"]["score"]
+        # relevance_score = data["relevance_score"]["score"]
 
         # COST
         spend = data["spend"]
@@ -157,9 +162,33 @@ for ad in account.get_ads(fields, params=params):
             cpp,
             ctr,
             spend,
-            relevance_score,
             date_start,
             date_stop
         ]))
+
+        json_line = {}
+
+        json_line["AD_NAME"] = ad_name
+        json_line["AD_ID"] = ad_id
+        json_line["CAMPAIGN_ID"] = campaign_id
+        json_line["ACCOUNT_ID"] = account_id
+        json_line["ADSET_ID"] = adset_id
+        json_line["STATUS"] = status
+        json_line["CLICKS"] = clicks
+        json_line["CPC"] = cpc
+        json_line["CPM"] = cpm
+        json_line["CPP"] = cpp
+        json_line["CTR"] = ctr
+        json_line["SPEND"] = spend
+        json_line["DATE_START"] = date_start
+        json_line["DATE_STOP"] = date_stop
+
+        # TODO: Clean up this part and make it better
+
+        json_data = json.dumps(json_line)
+
+        json_file = json_file[:-1] + json_data + ","
+
+        File.write("ads_export.json", json_file[:-1].replace("}{", "},{") + "]")
 
         print(ad_insights)
