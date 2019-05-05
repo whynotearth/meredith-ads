@@ -30,7 +30,7 @@ output_filename = raw_input("Enter the name of your output (example: meredith.ts
 app_id = '2126327730779495'
 
 # Meredith Marketing App Secret Key
-app_secret = '821717cc16a74b138af2c9070d8c2ff7'
+app_secret = ''
 
 # Meredith Marketing App Access Token
 
@@ -43,7 +43,7 @@ json_file = '[]'
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # Ad Accounts Initialization ( with all the campaigns )
-account = AdAccount('act_495346300520002')
+account = AdAccount('')
 
 fields = [
     'name',
