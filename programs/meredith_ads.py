@@ -16,6 +16,14 @@ class File:
         file.write(content.encode("utf-8") + "\n")
         file.close()
 
+    def toArray(self, filename):
+        array = []
+        for line in self.readLines(filename):
+            formattedLine = line.rstrip()
+            if formattedLine != '':
+                array.append(formattedLine)
+        return array
+
 File = File()
 
 def arrayToTSVLine(array):
