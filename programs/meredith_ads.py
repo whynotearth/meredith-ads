@@ -24,10 +24,23 @@ def arrayToTSVLine(array):
         line += "\"" + elem + "\"" + "\t"
     return line[:-1]
 
+
+secret_filename = raw_input('''
+Enter the path of your secret key file.
+Example : /Users/Desktop/your_secret_file
+
+The format must be the following:
+app_id = <YOUR APP_ID HERE> (example : app_id = 11111111111)
+app_secret = <YOUR APP_SECRET HERE> (example : app_secret = 22222222222 )
+access_token = <YOUR ACCESS_TOKEN HERE> (example : access_token = abcef123456)
+ad_account = <YOUR_AD_ACCOUNT_HERE> (example : ad_account = act_123456789)
+
+$: ''')
+
 output_filename = raw_input("Enter the name of your output (example: meredith.tsv)\n$: ")
 
 # Meredith Marketing App ID
-app_id = '2126327730779495'
+app_id = ''
 
 # Meredith Marketing App Secret Key
 app_secret = ''
