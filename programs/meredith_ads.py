@@ -4,6 +4,7 @@ from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.ad import Ad
 
 import json
+import sys
 
 class File:
     def write(self, filename, content):
@@ -15,6 +16,12 @@ class File:
         file = open(filename, "a")
         file.write(content.encode("utf-8") + "\n")
         file.close()
+
+    def readLines(self, filename):
+        file = open(filename, 'r')
+        lines = file.readlines()
+        file.close()
+        return lines
 
     def toArray(self, filename):
         array = []
@@ -32,10 +39,7 @@ def arrayToTSVLine(array):
         line += "\"" + elem + "\"" + "\t"
     return line[:-1]
 
-
-secret_filename = raw_input('''
-Enter the path of your secret key file.
-Example : /Users/Desktop/your_secret_file
+FORMAT_TEXT = '''
 
 The format must be the following:
 app_id = <YOUR APP_ID HERE> (example : app_id = 11111111111)
@@ -43,20 +47,31 @@ app_secret = <YOUR APP_SECRET HERE> (example : app_secret = 22222222222 )
 access_token = <YOUR ACCESS_TOKEN HERE> (example : access_token = abcef123456)
 ad_account = <YOUR_AD_ACCOUNT_HERE> (example : ad_account = act_123456789)
 
+'''
+
+
+secret_filename = raw_input('''
+Enter the path of your secret key file.
+Example : /Users/Desktop/your_secret_file
+''' + FORMAT_TEXT + '''
 $: ''')
+
+secret_array = File.toArray(secret_filename)
+
+app_id = str(secret_array[0].split(" = ")[1])
+app_secret = str(secret_array[1].split(" = ")[1])
+access_token = str(secret_array[2].split(" = ")[1])
+ad_account = str(secret_array[3].split(" = ")[1])
+
+if app_id == '' or app_secret == '' or access_token == '' or ad_account == '':
+    print(FORMAT_TEXT)
+    sys.exit(1)
 
 output_filename = raw_input("Enter the name of your output (example: meredith.tsv)\n$: ")
 
-# Meredith Marketing App ID
-app_id = ''
-
-# Meredith Marketing App Secret Key
-app_secret = ''
-
-# Meredith Marketing App Access Token
-
-# WARNING : Don't forget to remove this line before push
-access_token = ''
+if output_filename == '':
+    print("Invalid file name")
+    sys.exit(1)
 
 json_file = '[]'
 
@@ -64,7 +79,7 @@ json_file = '[]'
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # Ad Accounts Initialization ( with all the campaigns )
-account = AdAccount('')
+account = AdAccount(ad_account)
 
 fields = [
     'name',
