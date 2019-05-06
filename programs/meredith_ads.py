@@ -23,6 +23,12 @@ class File:
         file.close()
         return lines
 
+    def read(self, filename):
+        file = open(filename, 'r')
+        content = file.read()
+        file.close()
+        return content
+
     def toArray(self, filename):
         array = []
         for line in self.readLines(filename):
@@ -42,26 +48,28 @@ def arrayToTSVLine(array):
 FORMAT_TEXT = '''
 
 The format must be the following:
-app_id = <YOUR APP_ID HERE> (example : app_id = 11111111111)
-app_secret = <YOUR APP_SECRET HERE> (example : app_secret = 22222222222 )
-access_token = <YOUR ACCESS_TOKEN HERE> (example : access_token = abcef123456)
-ad_account = <YOUR_AD_ACCOUNT_HERE> (example : ad_account = act_123456789)
-
+{
+    "app_id" : "<YOUR APP_ID HERE>",
+    "app_secret" : "<YOUR APP_SECRET HERE>",
+    "access_token" : "<YOUR ACCESS_TOKEN HERE>",
+    "ad_account" : "<YOUR_AD_ACCOUNT_HERE>"
+}
 '''
 
 
 secret_filename = raw_input('''
-Enter the path of your secret key file.
-Example : /Users/Desktop/your_secret_file
+Enter the path of your secret json key file.
+Example : /Users/Desktop/credentials.json
 ''' + FORMAT_TEXT + '''
 $: ''')
 
-secret_array = File.toArray(secret_filename)
+json_file = File.read(secret_filename)
+json_data = json.loads(json_file)
 
-app_id = str(secret_array[0].split(" = ")[1])
-app_secret = str(secret_array[1].split(" = ")[1])
-access_token = str(secret_array[2].split(" = ")[1])
-ad_account = str(secret_array[3].split(" = ")[1])
+app_id = json_data["app_id"]
+app_secret = json_data["app_secret"]
+access_token = json_data["access_token"]
+ad_account = json_data["ad_account"]
 
 if app_id == '' or app_secret == '' or access_token == '' or ad_account == '':
     print(FORMAT_TEXT)
