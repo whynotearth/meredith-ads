@@ -74,7 +74,7 @@ params = {
 
 # TODO: Clean up this part and create methods / class with verification
 
-File.write(output_filename, arrayToTSVLine([
+File.write("../data/" + output_filename, arrayToTSVLine([
     "ad_name".upper(),
     "ad_id".upper(),
     "campaign_id".upper(),
@@ -204,6 +204,6 @@ for ad in account.get_ads(fields, params=params):
 
         json_file = json_file[:-1] + json_data + ","
 
-        File.write("ads_export.json", json_file[:-1].replace("}{", "},{") + "]")
+        File.write("../data/" + "ads_export.json", json_file[:-1].replace("}{", "},{") + "]")
 
         print(ad_insights)
