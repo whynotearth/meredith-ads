@@ -164,7 +164,7 @@ for ad in account.get_ads(fields, params=params):
 
         cost_per_unique_click = data["cost_per_unique_click"]
 
-        File.append(output_filename, arrayToTSVLine([
+        File.append("../data/" + output_filename, arrayToTSVLine([
             ad_name,
             ad_id,
             campaign_id,
